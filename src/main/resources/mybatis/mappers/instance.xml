@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cms.mapper.TemplatePageInstanceMapper">
+	<select id="findTemplatePageInstanceQueryBeanWithPage"
+		resultType="TemplatePageInstanceCommand">
+		SELECT
+			tpi.id AS id,
+			t.NAME AS templateName,
+			tpi.PAGE_TYPE AS pageType,
+			tpi.url AS url,
+			tpi.description as description,
+			tpi.last_modify_time AS lastModifyTime,
+			tpi.lifecycle AS lifecycle 
+		FROM
+			TEMPLATE_PAGE_INSTANCE tpi,
+			TEMPLATE t 
+		WHERE
+			tpi.lifecycle != 2 
+			AND tpi.template_id = t.id 
+			<if test="queryBean.url != null and queryBean.url != ''">
+				AND tpi.url = #{queryBean.url}
+			</if>
+			<if test="queryBean.pageType != null and queryBean.pageType != ''">
+				AND tpi.page_type = #{queryBean.pageType}
+			</if>
+			<if test="queryBean.lifecycle != null">
+				AND tpi.lifecycle = #{queryBean.lifecycle}
+			</if>
+		ORDER BY
+			tpi.last_modify_time DESC
+	</select>
+
+</mapper>

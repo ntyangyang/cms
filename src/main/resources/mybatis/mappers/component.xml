@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cms.mapper.ComponentMapper">
+	<select id="findAllComponentsByTemplateId" resultType="Component">
+		SELECT
+			c.* 
+		FROM
+			COMPONENT c,
+			TEMPLATE_COMPONENT_RLAT tcr,
+			TEMPLATE t 
+		WHERE
+			c.ID = tcr.COMPONENT_ID 
+			AND tcr.TEMPLATE_ID = t.ID 
+			AND t.ID = #{templateId}
+		ORDER BY
+			c.MODIFY_TIME DESC
+	</select>
+
+</mapper>

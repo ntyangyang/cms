@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cms.mapper.TemplateMapper">
+	<select id="findComponentsByTemplateId" resultType="java.lang.Integer">
+		select
+		component_id from TEMPLATE_COMPONENT_RLAT where template_id =
+		#{templateId}
+	</select>
+
+	<select id="findTemplateComponentRlatByParam" resultType="TemplateComponentRlat">
+		select
+		* from TEMPLATE_COMPONENT_RLAT where template_id = #{templateId} and
+		component_id = #{componentId}
+	</select>
+
+</mapper>

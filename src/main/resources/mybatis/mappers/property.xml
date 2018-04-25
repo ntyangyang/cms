@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cms.mapper.PropertyMapper">
+	<select id="findComponentPropertiesByCompoentIdWithPage"
+		resultType="ComponentProperty">
+		select pro.* from PROPERTY
+		pro,COMPONENT_PROPERTY_RLAT
+		cpr,COMPONENT com
+		where
+		pro.id = cpr.property_id
+		and cpr.component_id =
+		#{componentId}
+		and com.id = cpr.component_id
+		and pro.lifecycle != 2
+		order
+		by
+		pro.modify_time desc
+	</select>
+
+	<select id="findPropertiesByComponentId" resultType="ComponentProperty">
+		SELECT
+			pro.* 
+		FROM
+			PROPERTY pro,
+			COMPONENT_PROPERTY_RLAT cpror,
+			COMPONENT com 
+		WHERE
+			pro.id = cpror.property_id 
+			AND cpror.component_id = #{componentId} 
+			AND com.id = cpror.component_id 
+			AND pro.lifecycle = 1 
+		ORDER BY
+			pro.order_num ASC
+	</select>
+
+</mapper>
